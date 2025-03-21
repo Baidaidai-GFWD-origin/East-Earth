@@ -1,16 +1,18 @@
 <script setup>
-import { computed, ref } from 'vue';
+
+import { computed, ref, onMounted } from 'vue';
 
 const greeting = "Music Array is Analizing, Waiting a Moment ☕️!"
 
-let text = 2832;
-let myHtml = computed(()=>text)
+let text = ref(greeting);
+let myHtml = computed(()=>text.value)
 
 
 
 let musicIdArrayText = ref('')
+let musicIdArray = computed(()=>musicIdArrayText.value.split(',').map(id => id.trim()))
+let musicURLArray = []
 
-let musicIDArray = Array(musicIdArrayText)
 
 async function getMusic(array) {
     let musicURLs = {};
@@ -21,6 +23,7 @@ async function getMusic(array) {
             let JSONContext = await musicJSON.json();
             let musicURL = JSONContext.url;
             musicURLs[i] = musicURL;
+            musicURLArray[i] = musicURL
         }catch(err){
             console.error(`music ${array[i]} is analysis failed！`)
         }
@@ -30,29 +33,30 @@ async function getMusic(array) {
 
 // 只需要让function生成文本
 async function generateText(){
-    console.log('get')
-    console.log(musicIdArrayText.value)
-    let musicIdArray = musicIdArrayText.value.split(',').map(id => id.trim());
-    console.log(musicIdArray)
-    let resault = await getMusic(musicIdArray)
-    text = JSON.stringify(resault)
-    console.log(typeof text)
+    let resault = await getMusic(musicIdArray.value)
+    text.value = JSON.stringify(resault,null,'\t')
 }
 
+let downloadUrl = ref('');
+let downloadUrlValue = computed(()=>downloadUrl.value)
+const VDOM = ref(null);
 
-const downloadUrl = ref(''); // 添加下载链接的 ref 变量
-
-
-const downloadFile = () => {
-  if (downloadUrl.value) {
-    const link = document.createElement('a');
-    link.href = downloadUrl.value;
-    link.setAttribute('download', 'music.flac'); // 设置下载的文件名
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    app.$forceUpdate()
-  }
+async function downloadFile() {
+    alert("功能暂出现问题，等待后期修复")
+    // console.log("downloadFile function called");
+    // console.log("musicIdArray.value:", musicIdArray.value);
+    let downloadUrlArray = await getMusic(musicIdArray.value);
+    // console.log("data Fetched");
+    // console.log("downloadUrlArray:", downloadUrlArray);
+    const downloadUrlList = Object.values(downloadUrlArray);
+    // console.log("downloadUrlList:", downloadUrlList);
+    for (let i = 0; i < downloadUrlList.length; i++) {
+        downloadUrl.value = downloadUrlList[i];
+        await VDOM.value.click();
+        // console.log("downloadUrl.value:", downloadUrl.value);
+        // console.log("VDOM.value:", VDOM.value);
+        console.log(`${i} is Downloading……`);
+    }
 }
 
 
@@ -72,13 +76,13 @@ const downloadFile = () => {
                     <button class=" bg-slate-300 m-6 w-32 h-8 rounded-2xl" @click="downloadFile">Download Flac</button>
                 </div>
             </div>
-            <div class=" bg-slate-100 h-[560px] max-h-[560px] w-96  rounded-3xl flex items-center flex-col p-2 mt-8">
-                <div class="mt-4 p-4">{{ myHtml }}</div>
+            <div class=" bg-slate-100 h-[560px] max-h-[560px] w-96 p-4  rounded-3xl flex items-center flex-col mt-8 whitespace-break-spaces break-all overflow-scroll" v-html="myHtml">
+
             </div>
 
             <!-- Visiual DOM -->
-            <a :href="downloadUrl" :v-show="false" download="music.flac"></a>
-            
+            <a ref="VDOM" :v-show="false" :href="downloadUrlValue" download="music.flac" type="audio/mpeg" class=" bg-slate-300 h-3 w-3"></a>
+
         </div>
     </div>
 </template>
