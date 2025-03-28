@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 
 const greeting = "Music Array is Analizing, Waiting a Moment ☕️!"
 
@@ -38,23 +38,18 @@ async function generateText(){
 }
 
 let downloadUrl = ref('');
-let downloadUrlValue = computed(()=>downloadUrl.value)
-const VDOM = ref(null);
+const VDOM = useTemplateRef('VDOM')
 
 async function downloadFile() {
     alert("功能暂出现问题，等待后期修复")
-    // console.log("downloadFile function called");
-    // console.log("musicIdArray.value:", musicIdArray.value);
     let downloadUrlArray = await getMusic(musicIdArray.value);
-    // console.log("data Fetched");
-    // console.log("downloadUrlArray:", downloadUrlArray);
     const downloadUrlList = Object.values(downloadUrlArray);
-    // console.log("downloadUrlList:", downloadUrlList);
     for (let i = 0; i < downloadUrlList.length; i++) {
         downloadUrl.value = downloadUrlList[i];
-        await VDOM.value.click();
-        // console.log("downloadUrl.value:", downloadUrl.value);
-        // console.log("VDOM.value:", VDOM.value);
+        console.log(downloadUrl.value)
+        VDOM.value.href = downloadUrl.value
+        console.log(VDOM.value.href)
+        VDOM.value.click();
         console.log(`${i} is Downloading……`);
     }
 }
@@ -81,7 +76,7 @@ async function downloadFile() {
             </div>
 
             <!-- Visiual DOM -->
-            <a ref="VDOM" :v-show="false" :href="downloadUrlValue" download="music.flac" type="audio/mpeg" class=" bg-slate-300 h-3 w-3"></a>
+            <a ref="VDOM" :v-show="false" href="" target="_blank" download="audio.flac" type="audio/flac">clickme!</a>
 
         </div>
     </div>
