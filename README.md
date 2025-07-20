@@ -11,7 +11,7 @@
 and Shown it in JSON
 - It Can Do:
     1. Just analyze the Music List
-    2. Analyze Music and Download the Music (Pending……)
+    2. Analyze Music and Download the Music List
 
 ## How to Use?
 
@@ -50,7 +50,16 @@ and Shown it in JSON
 <img src="./teaching/web.JPG">
 4. Enjoy It ：- ）
 
-### Secondly, Basic Skill
+## Secondly, Basic Skill
+
+
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) installed on your system (v18.x or newer is recommended). npm is included with Node.js.  
+
+The core music analysis functionality is provided by the [Suxiaoqinx/Netease_url](https://github.com/Suxiaoqinx/Netease_url) backend service. To run this service, you also need: Python 3.x.  
+For complete setup details, please refer to the project
+
 
 
 #### Project Setup
