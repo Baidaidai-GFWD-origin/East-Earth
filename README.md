@@ -1,22 +1,22 @@
-# East Earth Music Analysis
+# East Earth 网易云音乐歌单解析
 
-## <p xmlns:cc="http://creativecommons.org/ns#" >This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+## <p xmlns:cc="http://creativecommons.org/ns#" >本作品采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
 
+## 关于 
+Need [English Version](./teaching/README_en-US.md) ?
 
-## About
-    Thanks of Suxiaoqinx/Netease_url, provide the Core funcitons !  
+    感谢 Suxiaoqinx/Netease_url 提供了核心功能！
 
+- 本项目是一个网络工具，旨在帮助您解析/下载网易云个人音乐列表
+并以 JSON 格式显示。
+- 功能包括：
+    1. 仅分析音乐列表
+    2. 分析音乐并下载音乐列表
 
-- This Project is an WebTool to help You Analyse Your personal Music List  
-and Shown it in JSON
-- It Can Do:
-    1. Just analyze the Music List
-    2. Analyze Music and Download the Music List
+## 如何使用？
 
-## How to Use?
-
-### Frist You Need To Analyse Your Music List By Your Self
-1. Copy all this LLFE Code and Open The Music PagePage👇🏻  
+### 首先，您需要自行分析您的音乐列表
+1. 复制以下所有 LLFE 代码并打开音乐页面👇🏻
 
 ```javascript
 (function(){
@@ -27,7 +27,7 @@ and Shown it in JSON
         const regexp = /href="\/song\?id=(\d+)"/g;
         const songIDMatches = context.match(regexp);
         if (!songIDMatches) {
-            console.log("No song IDs found.");
+            console.log("未找到歌曲 ID。");
             return [];
         }
         const songIDs = songIDMatches.map(match => {
@@ -42,40 +42,38 @@ and Shown it in JSON
     console.log(result)
     console.log(result.toString())
 })()
-```  
+```
 
-2. Open The Music Page and Open It  
-    Click Me! 👉🏻 [Mucsic163](https://music.163.com/#/my/)
-3. Open The Borwser's DevTools and Find It, Flow It
+2. 打开音乐页面
+    点击这里！ 👉🏻 [网易云音乐](https://music.163.com/#/my/)
+3. 打开浏览器的开发者工具并找到它，如下图所示
 <img src="./teaching/web.JPG">
-4. Enjoy It ：- ）
+4. 尽情享用 ：- ）
 
-## Secondly, Basic Skill
+## 其次，基本技能
 
+### 环境准备
 
-### Prerequisites
+请确保您的系统上已安装 [Node.js](https://nodejs.org/)（建议使用 v18.x 或更新版本）。npm 已包含在 Node.js 中。
 
-Make sure you have [Node.js](https://nodejs.org/) installed on your system (v18.x or newer is recommended). npm is included with Node.js.  
-
-The core music analysis functionality is provided by the [Suxiaoqinx/Netease_url](https://github.com/Suxiaoqinx/Netease_url) backend service. To run this service, you also need: Python 3.x.  
-For complete setup details, please refer to the project
-
+核心的音乐分析功能由 [Suxiaoqinx/Netease_url](https://github.com/Suxiaoqinx/Netease_url) 后端服务提供。要运行此服务，您还需要：Python 3.x。
+有关完整的设置详细信息，请参阅该项目。
 
 
-#### Project Setup
+
+### 项目设置
 
 ```sh
 npm install
 ```
 
-##### Compile and Hot-Reload for Development
+##### 编译和热重载（用于开发）
 
 ```sh
 npm run dev
 ```
 
-##### Compile and Minify for Production
+##### 编译和最小化（用于生产）
 
 ```sh
 npm run build
-```
