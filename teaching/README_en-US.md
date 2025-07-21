@@ -47,7 +47,7 @@ and Shown it in JSON
 2. Open The Music Page and Open It  
     Click Me! 👉🏻 [Mucsic163](https://music.163.com/#/my/)
 3. Open The Borwser's DevTools and Find It, Flow It
-<img src="./teaching/web.JPG">
+<img src="./web.JPG">
 4. Enjoy It ：- ）
 
 ## Secondly, Basic Skill
